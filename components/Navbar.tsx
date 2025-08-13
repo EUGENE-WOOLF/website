@@ -9,10 +9,9 @@ export default function NavBar() {
 	}, [])
 
 	return (
-		<nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+		<nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3">
 			<div className="container-fluid">
-				{/* Logo */}
-				<a className="navbar-brand fw-bold" href="#">
+				<a className="navbar-brand fw-bold fs-2" href="#">
           SPO IITK
 				</a>
 
@@ -29,7 +28,7 @@ export default function NavBar() {
 				</button>
 
 				<div className="collapse navbar-collapse justify-content-end" id="navbarContent">
-					<ul className="navbar-nav mb-2 mb-lg-0">
+					<ul className="navbar-nav mb-2 mb-lg-0 fs-5">
 						<li className="nav-item dropdown">
 							<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 SPO
@@ -47,12 +46,12 @@ export default function NavBar() {
 								</li>
 								<li>
 									<a className="dropdown-item" href="https://www.linkedin.com/company/office-of-career-services-iit-delhi/">
-                    Linkedin Page
+                    LinkedIn Page
 									</a>
 								</li>
 								<li>
 									<a className="dropdown-item" href="https://www.youtube.com/channel/UC3wG6-pywD_kiuhugo9e3Dg/featured">
-                    Youtube Channel
+                    YouTube Channel
 									</a>
 								</li>
 								<li>
@@ -85,7 +84,7 @@ export default function NavBar() {
 								</li>
 								<li>
 									<a className="dropdown-item" href="iitd.php?id=research">
-                    Research and Development
+                    Research & Development
 									</a>
 								</li>
 								<li>
@@ -168,11 +167,6 @@ export default function NavBar() {
 									</a>
 								</li>
 								<li>
-									<a className="dropdown-item" href="department.php">
-                    Nucleus Team
-									</a>
-								</li>
-								<li>
 									<a className="dropdown-item" href="student.php?id=gallery">
                     Gallery
 									</a>
@@ -185,11 +179,6 @@ export default function NavBar() {
 							</ul>
 						</li>
 
-						<li className="nav-item">
-							<a className="nav-link" href="downloads.php">
-                Downloads
-							</a>
-						</li>
 						<li className="nav-item">
 							<a className="nav-link" href="iitd.php?id=contact">
                 Contact Us
