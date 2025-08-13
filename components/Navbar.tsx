@@ -1,6 +1,7 @@
 "use client"
 
 import "bootstrap/dist/css/bootstrap.min.css"
+import Image from "next/image"
 import { useEffect } from "react"
 
 export default function NavBar() {
@@ -13,7 +14,12 @@ export default function NavBar() {
 			<nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-3 custom-navbar">
 				<div className="container-fluid">
 					<a className="navbar-brand fw-bold fs-1" href="#">
-            SPO IITK
+						<Image
+							src="/logo.png" // image stored in public/logo.png
+							alt="My Logo"
+							height={60}
+							width={400}
+						/>
 					</a>
 
 					<button
