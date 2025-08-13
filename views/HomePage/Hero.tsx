@@ -1,122 +1,101 @@
-/* eslint-disable react/no-unescaped-entities */
-import NextImage from "next/image"
-import Link from "next/link"
-import styled from "styled-components"
+'use client';
+import { useState, useEffect } from 'react';
+import type { CSSProperties } from 'react';
 
-import Button from "components/Button"
-import ButtonGroup from "components/ButtonGroup"
-import Container from "components/Container"
-import OverTitle from "components/OverTitle"
-import { media } from "utils/media"
+export default function BackgroundSlideshow() {
+  const images = ['/images/image1.jpg', '/images/image2.jpg', '/images/image3.jpg'];
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState(0);
+  const [fade, setFade] = useState(false);
 
-export default function Hero() {
-	return (
-		<HeroWrapper>
-			<Contents>
-				<CustomOverTitle>IIT Kanpur</CustomOverTitle>
-				<Heading>Students' Placement Office</Heading>
-				<Description>
-        The Students' Placement Office (SPO), IIT Kanpur is maintained and managed by a dedicated team of office staff and students 
-        who are responsible for all areas of IIT Kanpur placements. The SPO team assists recruiters to the best of its ability. We are 
-        grateful for the trust placed in us by various organisations, and we hope to continue working with them in the future.
-				</Description>
-				<CustomButtonGroup>
-					<Link href="/placement-coordinators" passHref>
-						<Button>
-              Contact <span>&rarr;</span>
-						</Button>
-					</Link>
-					<a target="_blank" rel="noopener noreferrer" href="https://placement.iitk.ac.in/">
-						<Button transparent>
-              Recruitment Portal <span>&rarr;</span>
-						</Button>
-					</a>
-					{/* <a target="_blank" rel="noopener noreferrer" href="https://phdplacement.iitk.ac.in/">
-						<Button transparent>
-              Phd Portal <span>&rarr;</span>
-						</Button>
-					</a> */}
-          <Button transparent onClick={() => window.open('https://phdplacement.iitk.ac.in/', '_blank', 'noopener,noreferrer')}>
-            PhD Portal <span>&rarr;</span>
-          </Button>
-				</CustomButtonGroup>
-			</Contents>
-			<ImageContainer>
-				<NextImage id = "building" src= "/testimonials/iitkanpur.png"  layout = "fill" objectFit="contain" />
-			</ImageContainer>
-		</HeroWrapper>
-	)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      changeSlide(1);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [currentIndex]);
+
+  const changeSlide = (direction: number) => {
+    setPrevIndex(currentIndex);
+    let next = currentIndex + direction;
+    if (next < 0) next = images.length - 1;
+    if (next >= images.length) next = 0;
+    setCurrentIndex(next);
+    setFade(true);
+    setTimeout(() => setFade(false), 800); // match fade duration
+  };
+
+  const nextSlide = () => changeSlide(1);
+  const prevSlide = () => changeSlide(-1);
+
+  return (
+    <div style={containerStyle}>
+      {/* Previous image */}
+      <div
+        style={{
+          ...bgImageStyle,
+          backgroundImage: `url(${images[prevIndex]})`,
+          opacity: fade ? 1 : 0,
+          zIndex: 1,
+        }}
+      />
+      {/* Current image */}
+      <div
+        style={{
+          ...bgImageStyle,
+          backgroundImage: `url(${images[currentIndex]})`,
+          opacity: 1,
+          zIndex: 2,
+        }}
+      />
+
+      {/* Arrows */}
+      <div style={arrowsStyle}>
+        <button onClick={prevSlide} style={arrowBtnStyle}>
+          &#10094;
+        </button>
+        <button onClick={nextSlide} style={arrowBtnStyle}>
+          &#10095;
+        </button>
+      </div>
+    </div>
+  );
 }
 
-const HeroWrapper = styled(Container)`
-  display: flex;
-  padding-top: 5rem;
+const containerStyle: CSSProperties = {
+  position: 'relative',
+  width: '100%',
+  height: '100vh',
+  overflow: 'hidden',
+};
 
-  ${media("<=desktop")} {
-    padding-top: 1rem;
-    flex-direction: column;
-    align-items: center;
-  }
-`
+const bgImageStyle: CSSProperties = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '90%',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  transition: 'opacity 0.8s ease-in-out',
+};
 
-const Contents = styled.div`
-  flex: 1;
-  max-width: 60rem;
+const arrowsStyle: CSSProperties = {
+  position: 'absolute',
+  bottom: '20px',
+  right: '20px',
+  display: 'flex',
+  gap: '10px',
+  zIndex: 3,
+};
 
-  ${media("<=desktop")} {
-    max-width: 100%;
-  }
-`
-
-const CustomButtonGroup = styled(ButtonGroup)`
-  margin-top: 4rem;
-`
-
-const ImageContainer = styled.div`
-flex: 1;
-max-width: 40%;
-position: relative;
-left : 5rem;
-&:before {
-  display: block;
-  content: '';
-  width: 100%;
-  padding-top : calc((9 / 16) * 100%);
-}
-
-  ${media("<=desktop")} {
-    margin-top: 2rem;
-    justify-content: center; 
-    align-items: center;
-    max-width: 100%;
-    left: 0;
-    width: 100vw;
-  }
-`
-
-const Description = styled.p`
-  font-size: 1.8rem;
-  opacity: 0.8;
-  line-height: 1.6;
-  text-align: justify;
-  ${media("<=desktop")} {
-    font-size: 1.5rem;
-  }
-`
-
-const CustomOverTitle = styled(OverTitle)`
-  margin-bottom: 2rem;
-`
-
-const Heading = styled.h1`
-  font-size: 4.5rem;
-  font-weight: bold;
-  line-height: 1.1;
-  margin-bottom: 4rem;
-  letter-spacing: -0.03em;
-
-  ${media("<=tablet")} {
-    font-size: 4.6rem;
-    margin-bottom: 2rem;
-  }
-`
+const arrowBtnStyle: CSSProperties = {
+  background: 'rgba(0,0,0,0.5)',
+  color: '#fff',
+  border: 'none',
+  padding: '10px 14px',
+  cursor: 'pointer',
+  fontSize: '18px',
+  borderRadius: '50%',
+  transition: 'background 0.3s',
+};
