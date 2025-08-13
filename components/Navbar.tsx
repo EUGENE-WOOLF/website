@@ -2,6 +2,7 @@
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import Image from "next/image"
+import Link from "next/link"
 import { useEffect } from "react"
 
 export default function NavBar() {
@@ -36,166 +37,129 @@ export default function NavBar() {
 
 					<div className="collapse navbar-collapse justify-content-end" id="navbarContent">
 						<ul className="navbar-nav mb-2 mb-lg-0 fs-5 fw-semibold">
-							{/* SPO Dropdown */}
 							<li className="nav-item dropdown">
-								<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  SPO
-								</a>
+								<Link href="/about" data-bs-toggle="dropdown" aria-expanded="false">
+									<a className="nav-link dropdown-toggle">About IITK</a>
+								</Link>
 								<ul className="dropdown-menu">
+									<li></li>
 									<li>
-										<a className="dropdown-item" href="index.php">
-                      About Us
-										</a>
+										<Link href="/about">
+											<a className="dropdown-item">About IITK</a>
+										</Link>
 									</li>
 									<li>
-										<a className="dropdown-item" href="https://ocs.iitd.ac.in/portal/notices">
-                      Alumni Job Notice Board
-										</a>
+										<Link href="/about#academics">
+											<a className="dropdown-item">Academics</a>
+										</Link>
 									</li>
 									<li>
-										<a className="dropdown-item" href="https://www.linkedin.com/company/office-of-career-services-iit-delhi/">
-                      LinkedIn Page
-										</a>
+										<Link href="/about#research">
+											<a className="dropdown-item">Research & Development</a>
+										</Link>
 									</li>
 									<li>
-										<a className="dropdown-item" href="https://www.youtube.com/channel/UC3wG6-pywD_kiuhugo9e3Dg/featured">
-                      YouTube Channel
-										</a>
+										<Link href="/about#alumni">
+											<a className="dropdown-item">Alumni</a>
+										</Link>
 									</li>
 									<li>
-										<a className="dropdown-item" href="https://www.instagram.com/ocs_iitd/">
-                      Instagram Page
-										</a>
+										<Link href="/about#faculty">
+											<a className="dropdown-item">Faculty</a>
+										</Link>
 									</li>
 									<li>
-										<a className="dropdown-item" href="pravritti/index.html">
-                      Pravritti
-										</a>
+										<Link href="/about#activities">
+											<a className="dropdown-item">Activities</a>
+										</Link>
 									</li>
 								</ul>
 							</li>
 
-							{/* IIT Kanpur Dropdown */}
 							<li className="nav-item dropdown">
-								<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  IIT Kanpur
-								</a>
+								<Link href="#" data-bs-toggle="dropdown" aria-expanded="false">
+									<a className="nav-link dropdown-toggle">For Students</a>
+								</Link>
 								<ul className="dropdown-menu">
 									<li>
-										<a className="dropdown-item" href="iitd.php?id=student">
-                      Student & Academics
-										</a>
+										<Link href="/students">
+											<a className="dropdown-item">Student</a>
+										</Link>
 									</li>
 									<li>
-										<a className="dropdown-item" href="iitd.php?id=batch">
-                      Graduating Batch
-										</a>
+										<Link href="/insights">
+											<a className="dropdown-item">Placement Insignts</a>
+										</Link>
 									</li>
 									<li>
-										<a className="dropdown-item" href="iitd.php?id=research">
-                      Research & Development
-										</a>
+										<Link href="/students#steps">
+											<a className="dropdown-item">Procedure</a>
+										</Link>
 									</li>
 									<li>
-										<a className="dropdown-item" href="iitd.php?id=media">
-                      Media Report
-										</a>
+										<Link href="/students#resources">
+											<a className="dropdown-item">Resources</a>
+										</Link>
 									</li>
 									<li>
-										<a className="dropdown-item" href="department.php">
-                      Departments
-										</a>
-									</li>
-								</ul>
-							</li>
-
-							{/* For Students Dropdown */}
-							<li className="nav-item dropdown">
-								<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  For Students
-								</a>
-								<ul className="dropdown-menu">
-									<li>
-										<a className="dropdown-item" href="https://ocs.iitd.ac.in/portal/login?role=student">
-                      Student Login
-										</a>
-									</li>
-									<li>
-										<a className="dropdown-item" href="https://apps.powerapps.com/play/...">
-                      Alumni Search
-										</a>
-									</li>
-									<li>
-										<a className="dropdown-item" href="student.php?id=faq">
-                      F.A.Q.
-										</a>
-									</li>
-									<li>
-										<a className="dropdown-item" href="student.php?id=alumni">
-                      Alumni
-										</a>
+										<Link href="/students#prepRoadmaps">
+											<a className="dropdown-item">Preperation Roadmaps</a>
+										</Link>
 									</li>
 								</ul>
 							</li>
 
 							{/* For Recruiters Dropdown */}
 							<li className="nav-item dropdown">
-								<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  For Recruiters
-								</a>
+								<Link href="/companies" data-bs-toggle="dropdown" aria-expanded="false">
+									<a className="nav-link dropdown-toggle">Recruiter</a>
+								</Link>
 								<ul className="dropdown-menu">
 									<li>
-										<a className="dropdown-item" href="https://ocs.iitd.ac.in/portal/recruiter/auth">
-                      Recruiters Login
-										</a>
+										<Link href="/companies">
+											<a className="dropdown-item">Companies</a>
+										</Link>
 									</li>
 									<li>
-										<a className="dropdown-item" href="recruiter.php?id=past">
-                      Past Recruiters
-										</a>
+										<Link href="/companies#steps">
+											<a className="dropdown-item">Procedure</a>
+										</Link>
 									</li>
 									<li>
-										<a className="dropdown-item" href="recruiter.php?id=procedure">
-                      Recruiters Procedure
-										</a>
+										<Link href="/companies#ipolicy">
+											<a className="dropdown-item">Internship Policy</a>
+										</Link>
+									</li>
+									<li>
+										<Link href="/companies#facilities">
+											<a className="dropdown-item">Facilities</a>
+										</Link>
+									</li>
+									<li>
+										<Link href="/companies#resources">
+											<a className="dropdown-item">Resources</a>
+										</Link>
 									</li>
 								</ul>
 							</li>
 
 							{/* Team Dropdown */}
 							<li className="nav-item dropdown">
-								<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Team
-								</a>
+								<Link href="#" data-bs-toggle="dropdown" aria-expanded="false">
+									<a className="nav-link dropdown-toggle">Activities</a>
+								</Link>
 								<ul className="dropdown-menu">
 									<li>
-										<a className="dropdown-item" href="admin.php">
-                      Administration
-										</a>
+										<Link href="/samvardhan">
+											<a className="dropdown-item">Samvardhan</a>
+										</Link>
 									</li>
 									<li>
-										<a className="dropdown-item" href="team.php">
-                      Student Team
-										</a>
-									</li>
-									<li>
-										<a className="dropdown-item" href="student.php?id=gallery">
-                      Gallery
-										</a>
-									</li>
-									<li>
-										<a className="dropdown-item" href="https://ocs.iitd.ac.in/portal/login?role=admin">
-                      Admin Login
-										</a>
+										<Link href="/contact">
+											<a className="dropdown-item">Contact</a>
+										</Link>
 									</li>
 								</ul>
-							</li>
-
-							{/* Contact */}
-							<li className="nav-item">
-								<a className="nav-link" href="iitd.php?id=contact">
-                  Contact Us
-								</a>
 							</li>
 						</ul>
 					</div>
@@ -210,6 +174,11 @@ export default function NavBar() {
 
         .navbar-brand {
           letter-spacing: 1px;
+        }
+
+        /* Add space between top-level menu items */
+        .navbar-nav .nav-item {
+          margin-left: 1rem; /* adjust as needed */
         }
 
         .navbar .dropdown-menu {

@@ -1,9 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
 import type { CSSProperties } from 'react';
+import { images } from 'utils/imageKeepHere';
 
 export default function BackgroundSlideshow() {
-  const images = ['/images/image1.jpg', '/images/image2.jpg', '/images/image3.jpg'];
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(0);
   const [fade, setFade] = useState(false);
@@ -22,7 +22,7 @@ export default function BackgroundSlideshow() {
     if (next >= images.length) next = 0;
     setCurrentIndex(next);
     setFade(true);
-    setTimeout(() => setFade(false), 800); // match fade duration
+    setTimeout(() => setFade(false), 800);
   };
 
   const nextSlide = () => changeSlide(1);
@@ -49,15 +49,15 @@ export default function BackgroundSlideshow() {
         }}
       />
 
-      {/* Arrows */}
-      <div style={arrowsStyle}>
-        <button onClick={prevSlide} style={arrowBtnStyle}>
-          &#10094;
-        </button>
-        <button onClick={nextSlide} style={arrowBtnStyle}>
-          &#10095;
-        </button>
-      </div>
+      {/* Left Arrow */}
+      <button onClick={prevSlide} style={{ ...arrowBtnStyle, left: '20px' }}>
+        &#10094;
+      </button>
+
+      {/* Right Arrow */}
+      <button onClick={nextSlide} style={{ ...arrowBtnStyle, right: '20px' }}>
+        &#10095;
+      </button>
     </div>
   );
 }
@@ -80,22 +80,17 @@ const bgImageStyle: CSSProperties = {
   transition: 'opacity 0.8s ease-in-out',
 };
 
-const arrowsStyle: CSSProperties = {
-  position: 'absolute',
-  bottom: '20px',
-  right: '20px',
-  display: 'flex',
-  gap: '10px',
-  zIndex: 3,
-};
-
 const arrowBtnStyle: CSSProperties = {
+  position: 'absolute',
+  top: '50%',
+  transform: 'translateY(-50%)',
   background: 'rgba(0,0,0,0.5)',
   color: '#fff',
   border: 'none',
-  padding: '10px 14px',
+  padding: '12px 16px',
   cursor: 'pointer',
-  fontSize: '18px',
+  fontSize: '20px',
   borderRadius: '50%',
   transition: 'background 0.3s',
+  zIndex: 3,
 };
