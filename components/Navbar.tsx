@@ -1,195 +1,203 @@
-import dynamic from "next/dynamic"
-import NextLink from "next/link"
-import { useRouter } from "next/router"
-import React, { useRef, useState } from "react"
-import styled from "styled-components"
+"use client"
 
-import { useNewsletterModalContext } from "contexts/newsletter-modal.context"
-import { ScrollPositionEffectProps, useScrollPosition } from "hooks/useScrollPosition"
-import { NavItems, SingleNavItem } from "types"
-import { media } from "utils/media"
+import "bootstrap/dist/css/bootstrap.min.css"
+import { useEffect } from "react"
 
-import Button from "./Button"
-import Container from "./Container"
-import Drawer from "./Drawer"
-import { HamburgerIcon } from "./HamburgerIcon"
-import Logo from "./Logo"
-
-const ColorSwitcher = dynamic(() => import("../components/ColorSwitcher"), { ssr: false })
-
-type NavbarProps = { items: NavItems };
-type ScrollingDirections = "up" | "down" | "none";
-type NavbarContainerProps = { hidden: boolean; transparent: boolean };
-
-export default function Navbar({ items }: NavbarProps) {
-	const router = useRouter()
-	const { toggle } = Drawer.useDrawer()
-	const [scrollingDirection, setScrollingDirection] = useState<ScrollingDirections>("none")
-
-	const lastScrollY = useRef(0)
-	const lastRoute = useRef("")
-	const stepSize = useRef(50)
-
-	useScrollPosition(scrollPositionCallback, [router.asPath], undefined, undefined, 50)
-
-	function scrollPositionCallback({ currPos }: ScrollPositionEffectProps) {
-		const routerPath = router.asPath
-		const hasRouteChanged = routerPath !== lastRoute.current
-
-		if (hasRouteChanged) {
-			lastRoute.current = routerPath
-			setScrollingDirection("none")
-			return
-		}
-
-		const currentScrollY = currPos.y
-		const isScrollingUp = currentScrollY > lastScrollY.current
-		const scrollDifference = Math.abs(lastScrollY.current - currentScrollY)
-		const hasScrolledWholeStep = scrollDifference >= stepSize.current
-		const isInNonCollapsibleArea = lastScrollY.current > -50
-
-		if (isInNonCollapsibleArea) {
-			setScrollingDirection("none")
-			lastScrollY.current = currentScrollY
-			return
-		}
-
-		if (!hasScrolledWholeStep) {
-			lastScrollY.current = currentScrollY
-			return
-		}
-
-		setScrollingDirection(isScrollingUp ? "up" : "down")	
-		lastScrollY.current = currentScrollY
-	}
-
-	const isNavbarHidden = scrollingDirection === "down"
-	const isTransparent = scrollingDirection === "none"
+export default function NavBar() {
+	useEffect(() => {
+		import("bootstrap/dist/js/bootstrap.bundle.min.js")
+	}, [])
 
 	return (
-		<NavbarContainer hidden={isNavbarHidden} transparent={isTransparent}>
-			<Content>
-				<NextLink href="/" passHref>
-					<LogoWrapper>
-						<Logo />
-					</LogoWrapper>
-				</NextLink>
-				<NavItemList>
-					{items.map((singleItem) => (
-						<NavItem key={singleItem.href} {...singleItem} />
-					))}
-				</NavItemList>
-				{/* <ColorSwitcherContainer>
-					<ColorSwitcher />
-				</ColorSwitcherContainer> */}
-				<HamburgerMenuWrapper>
-					<HamburgerIcon aria-label="Toggle menu" onClick={toggle} />
-				</HamburgerMenuWrapper>
-			</Content>
-		</NavbarContainer>
+		<nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+			<div className="container-fluid">
+				{/* Logo */}
+				<a className="navbar-brand fw-bold" href="#">
+          SPO IITK
+				</a>
+
+				<button
+					className="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarContent"
+					aria-controls="navbarContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span className="navbar-toggler-icon"></span>
+				</button>
+
+				<div className="collapse navbar-collapse justify-content-end" id="navbarContent">
+					<ul className="navbar-nav mb-2 mb-lg-0">
+						<li className="nav-item dropdown">
+							<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                SPO
+							</a>
+							<ul className="dropdown-menu">
+								<li>
+									<a className="dropdown-item" href="index.php">
+                    About Us
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="https://ocs.iitd.ac.in/portal/notices">
+                    Alumni Job Notice Board
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="https://www.linkedin.com/company/office-of-career-services-iit-delhi/">
+                    Linkedin Page
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="https://www.youtube.com/channel/UC3wG6-pywD_kiuhugo9e3Dg/featured">
+                    Youtube Channel
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="https://www.instagram.com/ocs_iitd/">
+                    Instagram Page
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="pravritti/index.html">
+                    Pravritti
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<li className="nav-item dropdown">
+							<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                IIT Kanpur
+							</a>
+							<ul className="dropdown-menu">
+								<li>
+									<a className="dropdown-item" href="iitd.php?id=student">
+                    Student & Academics
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="iitd.php?id=batch">
+                    Graduating Batch
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="iitd.php?id=research">
+                    Research and Development
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="iitd.php?id=media">
+                    Media Report
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="department.php">
+                    Departments
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<li className="nav-item dropdown">
+							<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                For Students
+							</a>
+							<ul className="dropdown-menu">
+								<li>
+									<a className="dropdown-item" href="https://ocs.iitd.ac.in/portal/login?role=student">
+                    Student Login
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="https://apps.powerapps.com/play/...">
+                    Alumni Search
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="student.php?id=faq">
+                    F.A.Q.
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="student.php?id=alumni">
+                    Alumni
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<li className="nav-item dropdown">
+							<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                For Recruiters
+							</a>
+							<ul className="dropdown-menu">
+								<li>
+									<a className="dropdown-item" href="https://ocs.iitd.ac.in/portal/recruiter/auth">
+                    Recruiters Login
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="recruiter.php?id=past">
+                    Past Recruiters
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="recruiter.php?id=procedure">
+                    Recruiters Procedure
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<li className="nav-item dropdown">
+							<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Team
+							</a>
+							<ul className="dropdown-menu">
+								<li>
+									<a className="dropdown-item" href="admin.php">
+                    Administration
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="team.php">
+                    Student Team
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="department.php">
+                    Nucleus Team
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="student.php?id=gallery">
+                    Gallery
+									</a>
+								</li>
+								<li>
+									<a className="dropdown-item" href="https://ocs.iitd.ac.in/portal/login?role=admin">
+                    Admin Login
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<li className="nav-item">
+							<a className="nav-link" href="downloads.php">
+                Downloads
+							</a>
+						</li>
+						<li className="nav-item">
+							<a className="nav-link" href="iitd.php?id=contact">
+                Contact Us
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 	)
 }
-
-function NavItem({ href, title, outlined }: SingleNavItem) {
-	const { setIsModalOpened } = useNewsletterModalContext()
-
-	function showNewsletterModal() {
-		setIsModalOpened(true)
-	}
-
-	if (outlined) {
-		return <CustomButton onClick={showNewsletterModal}>{title}</CustomButton>
-	}
-
-	return (
-		<NavItemWrapper outlined={outlined}>
-			<NextLink href={href} passHref>
-				<a>{title}</a>
-			</NextLink>
-		</NavItemWrapper>
-	)
-}
-
-const CustomButton = styled(Button)`
-  padding: 0.75rem 1.5rem;
-  line-height: 1.8;
-`
-
-const NavItemList = styled.div`
-  display: flex;
-  list-style: none;
-
-  ${media("<desktop")} {
-    display: none;
-  }
-`
-
-const HamburgerMenuWrapper = styled.div`
-  ${media(">=desktop")} {
-    display: none;
-  }
-`
-
-const LogoWrapper = styled.a`
-  display: flex;
-  margin-right: auto;
-  text-decoration: none;
-
-  color: rgb(var(--logoColor));
-`
-
-const NavItemWrapper = styled.li<Partial<SingleNavItem>>`
-  background-color: ${(p) => (p.outlined ? "rgb(var(--primary))" : "transparent")};
-  border-radius: 0.5rem;
-  font-size: 1.3rem;
-  text-transform: uppercase;
-  line-height: 2;
-
-  &:hover {
-    background-color: ${(p) => (p.outlined ? "rgb(var(--primary), 0.8)" : "transparent")};
-    transition: background-color 0.2s;
-  }
-
-  a {
-    display: flex;
-    color: ${(p) => (p.outlined ? "rgb(var(--textSecondary))" : "rgb(var(--text), 0.75)")};
-    letter-spacing: 0.025em;
-    text-decoration: none;
-    padding: 0.75rem 1.5rem;
-    font-weight: 700;
-  }
-
-  &:not(:last-child) {
-    margin-right: 2rem;
-  }
-`
-
-const NavbarContainer = styled.div<NavbarContainerProps>`
-  display: flex;
-  position: sticky;
-  top: 0;
-  padding: 1.5rem 0;
-  width: 100%;
-  height: 8rem;
-  z-index: var(--z-navbar);
-
-  background-color: rgb(var(--navbarBackground));
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
-  visibility: ${(p) => (p.hidden ? "hidden" : "visible")};
-  transform: ${(p) => (p.hidden ? "translateY(-8rem) translateZ(0) scale(1)" : "translateY(0) translateZ(0) scale(1)")};
-
-  transition-property: transform, visibility, height, box-shadow, background-color;
-  transition-duration: 0.15s;
-  transition-timing-function: ease-in-out;
-`
-
-const Content = styled(Container)`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-`
-
-const ColorSwitcherContainer = styled.div`
-  width: 4rem;
-  margin: 0 1rem;
-`
